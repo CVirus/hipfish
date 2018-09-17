@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+    db:
+      image: mysql:5.7
+      environment:
+        - MYSQL_ALLOW_EMPTY_PASSWORD=true
+        - MYSQL_ROOT_HOST=%
+
+    exporter:
+      build: .
+      volumes:
+        - ./output:/hipchat-exporter/dist
+      environment:
+        - HIPCHAT_TOKEN=${HF_HIPCHAT_TOKEN}
+        - TIME_ZONE=Europe/Berlin
+        - ROOM=${HF_ROOM}
+        - HF_DB_HOST=db
